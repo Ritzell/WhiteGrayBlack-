@@ -9,7 +9,7 @@ int move = 1;
 float vx = 0;
 float vy = 0;
 boolean flag = false;
-各型の変数を宣言
+//各型の変数を宣言
   
 PImage img;
 PImage player;
