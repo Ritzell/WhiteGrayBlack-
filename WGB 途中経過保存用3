@@ -1,0 +1,155 @@
+  import ddf.minim.*;
+  Minim minim;
+  AudioPlayer player_sound;
+
+  int x;
+  int y;
+  int move = 5;
+  
+  
+  final float speed = 3;
+  final float Accele_speed = 0.55;
+  final float Deccele_speed = -3;
+  final float INIT_SPEED = 1; 
+
+  float vx = speed;
+  float vy = speed;
+  float s = 0.0f;
+  
+  PImage img;
+  PImage player;
+  
+  boolean live1;           //  等速ボールの動作中フラグ
+  boolean live2;           //  減速ボールの動作中フラグ
+  boolean live3;           //  加速ボールの動作中フラグ
+  boolean live4;           //  加速ボールの動作中フラグ
+  boolean live5;           //  加速ボールの動作中フラグ
+  
+  
+void setup() {
+  
+  minim = new Minim(this); //初 期 化
+  player_sound = minim.loadFile("1588.mp3");
+  player_sound.play(); //再 生
+  player_sound.loop();
+  
+  vx = 3;
+  
+  live1 = false;           //  等速ボールの動作中フラグ
+  live2 = false;           //  減速ボールの動作中フラグ
+  live3 = false;           //  加速ボールの動作中フラグ
+  live4 = false;           //  加速ボールの動作中フラグ
+  live5 = false;           //  加速ボールの動作中フラグ
+  
+  size(640,340);
+  
+  img = loadImage("background3.jpg");
+  player = loadImage("player.png");
+  
+  frameRate(120);
+  
+  smooth(); 
+  
+}
+
+
+void draw() {
+  
+  background(0);
+  
+  image (img, 0, 0, 1600, 340);
+  
+  enemy();
+  object();
+  player();
+}
+void object()
+{
+  fill(255);
+  rect(0, 150, 100, 800);
+  rect(0, 70, 60, -73);
+  rect(150, 150, 60, -150);
+  rect(150, 370, 60, -150);
+  rect(270, 250, 180, -150);
+  rect(270, 440,180,-150);
+  rect(270, 60, 180, -150);
+  rect(490, 370, 60, -150);
+  rect(490, 370, 60, -150);
+  rect(490, 100, 60, -150);
+}
+
+void enemy()
+{
+    int y = -10;
+    fill(100);
+    rect(505, 110, 30, y);
+    if( y > -200){
+      y = +10;
+    }
+    
+}
+
+void player()
+{
+  int x = 12;
+  int y = 100;
+  
+  image (player, x, y, 20, 20);
+  //y += 10;//重力
+    if( y > height ){
+      y = 0;
+    }
+    if( y < 0 ){
+      y = 340;
+    }
+    if( x < 0 ){
+      x = 4;
+    }
+}
+void keyPressed(){
+     if(key == CODED){
+     if(keyCode == RIGHT){     
+       live1 = true;           
+      }
+      if(live1 == true){      
+       vx += Accele_speed;     
+       x += vx;                
+      }
+     
+      if(vx > 5){             
+       live1 = false;
+       x += vx;
+      }
+     }
+     if(keyCode == LEFT){
+       live3 = true;
+     }
+       if(live3 == true){
+         vx -= Accele_speed;
+         x += vx;
+       }
+       if(vx > -5){
+         live3 =false;
+         x -= vx;
+       }
+    }
+
+void keyReleased(){
+       if(vx > 0){
+         live2 = true;
+       }
+       if(live2 == true){
+         vx += -0.0001;
+       }
+       if(vx == 0){
+         live2 = false;
+       }
+}
+         
+      
+void stop()
+{
+  player_sound.close();
+  minim.stop();
+  super.stop();
+}
