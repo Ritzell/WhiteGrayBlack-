@@ -1,0 +1,104 @@
+  int x = 12;
+  int y = 100;
+  int move = 10;
+  
+  final float speed = 0;
+  final float Aceele_speed = 0.01;
+  final float Deccele_speed = -0.000000001;
+  float velocity = 10;
+  
+  float vx = speed;
+  float vy = speed;
+  
+  
+  PImage img;
+  
+void setup() {
+  
+  size(640,340);
+  
+  img = loadImage("a.png");
+  
+  
+  frameRate(60);
+  
+  smooth(); //オブジェクト　に　アンチエイリアス　を　つける
+  
+  noStroke(); //輪郭　を　かかない
+  
+}
+void draw() {
+  
+  background(0);
+  
+  image (img, 0, 0, 640, 340);
+  
+
+  ellipse(x, y, 20, 20);{
+    
+    y += 10;//重力
+    
+    if( y > height ){
+      y = 0;
+    }
+    if( y < 0 ){
+      y = 340;
+    }
+    if( x < 0 ){
+      x = 12;
+    }
+    if (this.x < 0 || 640  <= this.x) vx = -vx;
+  }
+  
+  rect(0, 150, 100, 800);
+  rect(0, 70, 60, -73);
+  rect(150, 150, 60, -150);
+  rect(150, 370, 60, -150);
+  rect(270, 250, 180, -150);
+  rect(270, 440,180,-150);
+  rect(270, 60, 180, -150);
+  rect(490, 370, 60, -150);
+  rect(490, 370, 60, -150);
+  rect(490, 100, 60, -150);
+  
+  rect(505, 110, 30, -150);
+
+if ( keyPressed == true) { 
+
+  //もし押された　キー　が　キーコマンド　だったら　イベントを　開　始　する
+ 
+ if(key == CODED){
+   if(keyCode == UP) 
+   { 
+    y -= velocity;  //上　に　１０　ずつ　進む
+
+    
+   }else if ( keyCode == DOWN ) 
+   { 
+     y += velocity;  //下　に　１０ずつ　進む
+
+    
+   }else if ( keyCode == LEFT ) 
+   { 
+     x -= velocity;  //左　に　１０　ずつ　進む
+
+    
+   }else if ( keyCode == RIGHT ) 
+   {
+     x += velocity;  //右　に　１０ずつ　進む
+
+ 
+   }
+ }
+}
+
+ if (keyPressed == false) {
+  if( key == CODED ){
+    if ( keyCode == UP )
+    {
+      vy += Deccele_speed;
+      y -= vy;
+     }
+   }
+ }
+}
