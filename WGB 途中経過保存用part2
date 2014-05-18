@@ -1,0 +1,132 @@
+  import ddf.minim.*;
+  Minim minim;
+  AudioPlayer player_sound;
+  
+  int x = 12;
+  int y = 100;
+  
+  final float speed = 3;
+  final float Accele_speed = 0.55;
+  final float Deccele_speed = -3;
+  final float INIT_SPEED = 1; 
+
+  float vx = speed;
+  float vy = speed;
+  float s = 0.0f;
+  
+  PImage img;
+  PImage player;
+  
+  boolean live1;           
+  boolean live2;           
+  boolean live3;           
+  boolean live4;           
+  boolean live5;           
+  
+  
+void setup() {
+  
+  minim = new Minim(this); //初 期 化
+  player_sound = minim.loadFile("1588.mp3");
+  player_sound.play(); //再 生
+  player_sound.loop();
+  
+  vx = 3;
+  
+  live1 = false;           
+  live2 = false;           
+  live3 = false;           
+  live4 = false;           
+  live5 = false;           
+  
+  size(640,340);
+  
+  img = loadImage("background3.jpg");
+  player = loadImage("player.png");
+  
+  frameRate(120);
+  
+  smooth(); 
+  
+}
+
+
+void draw() {
+  
+  background(0);
+  
+  image (img, 0, 0, 1600, 340);
+  image (player, x, y, 20, 20);
+    
+    //y += 10;//重力
+    
+    if( y > height ){
+      y = 0;
+    }
+    if( y < 0 ){
+      y = 340;
+    }
+    if( x < 0 ){
+      x = 4;
+    }
+  
+  rect(505, 110, 30, -150);
+  rect(0, 150, 100, 800);
+  rect(0, 70, 60, -73);
+  rect(150, 150, 60, -150);
+  rect(150, 370, 60, -150);
+  rect(270, 250, 180, -150);
+  rect(270, 440,180,-150);
+  rect(270, 60, 180, -150);
+  rect(490, 370, 60, -150);
+  rect(490, 370, 60, -150);
+  rect(490, 100, 60, -150);
+}
+
+void keyPressed(){
+     if(key == CODED){
+     if(keyCode == RIGHT){     
+       live1 = true;           
+      }
+      if(live1 == true){      
+       vx += Accele_speed;     
+       x += vx;                
+      }
+     
+      if(vx > 5){             
+       live1 = false;
+       x += vx;
+      }
+     }
+     if(keyCode == LEFT){
+       live3 = true;
+     }
+       if(live3 == true){
+         vx -= Accele_speed;
+         x += vx;
+       }
+       if(vx > -5){
+         live3 =false;
+         x -= vx;
+       }
+    }
+
+void keyReleased(){
+       if(vx > 0){
+         live2 = true;
+       }
+       if(live2 == true){
+         vx += -0.0001;
+       }
+       if(vx == 0){
+         live2 = false;
+       }
+}
+         
+      
+void stop()
+{
+  player_sound.close();
+  minim.stop();
+  super.stop();
+}
