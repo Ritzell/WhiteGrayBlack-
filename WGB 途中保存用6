@@ -1,0 +1,644 @@
+import ddf.minim.*;//minimライブラリをインポート(追加する)
+Minim minim;//Minim型の変数名minimを宣言
+AudioPlayer player_sound;//AudioPlayer型の変数名player_soundを宣言
+AudioPlayer tutorial;
+
+
+int PlayerPositionX = 0;
+int PlayerPositionY = 312;
+int move = 1;
+float vx = 0;
+float vy = 0;
+boolean flag = true;
+boolean flag1 = true;
+boolean flag2;
+int se;
+//各型の変数を宣言
+  
+PImage img;
+PImage Player;
+PImage hp;
+//PImage型の変数名、img、playerを宣言
+  
+int live1;
+int live2;
+int live3;
+//必要になり次第フラグを追加する
+
+float x1;
+float y1;
+float s1;
+float x2;
+float y2;
+float s2;
+float x3;
+float y3;
+float s3;
+float x4;
+float y4;
+float s4;
+float x5;
+float y5;
+float s5;
+float x6;
+float y6;
+float s6;
+float x7;
+float y7;
+float s7;
+float x8;
+float y8;
+float s8;
+float x9;
+float y9;
+float s9;
+float x10;
+float y10;
+float s10;
+float x11;
+float y11;
+float s11;
+float x12;
+float y12;
+float s12;
+float x13;
+float y13;
+float s13;
+float x14;
+float y14;
+float s14;
+float x15;
+float y15;
+float s15;
+float x16;
+float y16;
+float s16;
+float x17;
+float y17;
+float s17;
+float x18;
+float y18;
+float s18;
+int width1;
+int en1,en2;
+int b100;
+int b10;
+int i;
+
+
+Player b1;
+enemyBlock eb;
+  
+  
+void setup()
+{
+  
+  x1 = random(0,300);
+  y1 = random(0,320);
+  s1 = random(5,50);
+  x2 = random(0,300);
+  y2 = random(0,320);
+  s2 = random(5,50);
+  x3 = random(0,300);
+  y3 = random(0,320);
+  s3 = random(5,50);
+  x4 = random(0,300);
+  y4 = random(0,320);
+  s4 = random(5,50);
+  x5 = random(0,300);
+  y5 = random(0,320);
+  s5 = random(5,50);
+  x6 = random(0,300);
+  y6 = random(0,320);
+  s6 = random(5,50);
+  x7 = random(0,300);
+  y7 = random(0,320);
+  s7 = random(5,50);
+  x8 = random(0,300);
+  y8 = random(0,320);
+  s8 = random(5,50);
+  x9 = random(0,300);
+  y9 = random(0,320);
+  s9 = random(5,50);
+  x10 = random(0,300);
+  y10 = random(0,260);
+  s10 = random(5,50);
+  x11 = random(0,300);
+  y11 = random(0,260);
+  s11 = random(5,50);
+  x12 = random(0,300);
+  y12 = random(0,260);
+  s12 = random(5,50);
+  x13 = random(0,300);
+  y13 = random(0,260);
+  s13 = random(5,50);
+  x14 = random(0,300);
+  y14 = random(0,260);
+  s14 = random(5,50);
+  x15 = random(0,300);
+  y15 = random(0,260);
+  s15 = random(5,50);
+  x15 = random(0,300);
+  y15 = random(0,260);
+  s15 = random(5,50);
+  x16 = random(0,300);
+  y16 = random(0,320);
+  s16 = random(5,50);
+  x17 = random(0,300);
+  y17 = random(0,320);
+  s17 = random(5,50);
+  x18 = random(0,300);
+  y18 = random(0,320);
+  s18 = random(5,50);
+  en1 = 400;
+  en2 = 210;
+  se = 0;
+  b100 = 3;
+  b10 = 520;
+  i = 3;
+  flag2 = true;
+  //BGMの読み込みと再生。ループ機能をつけている。
+    minim = new Minim(this);
+    player_sound = minim.loadFile("1588.mp3");//指定された名前の音楽ファイルをロード
+    player_sound.play();//ロードした音楽ファイルを再生
+    player_sound.loop();//再生された音楽にループ機能をつける
+    
+    vx = 3;
+    
+    live1 = 0;        
+    live2 = 0;    
+    live3 = 0;    
+    //宣言に応じてフラグを追加する        
+  
+    size(640,450);
+    
+    img = loadImage("111.jpg");//指定された名前の画像ファイルをロード
+    Player = loadImage("aa11.png");//指定された画像ファイルのロード
+    hp = loadImage("HP.png");
+    frameRate(60);//１秒間に表示するコマの数dd
+    smooth();//オブジェクトにアンチエイリアスをつけている
+    
+    b1 = new Player(50,50,100);
+    eb = new enemyBlock(400,310,400);
+
+}
+
+
+void draw()
+{
+  
+  background(0);
+  image (img, 0, 0, 640, 450);//ロードした画像を、640x340のサイズで背景画像としている
+  
+  width1 = 0;
+  
+  fill(200,170);
+  ellipse(x1,y1,s1,s1);
+  ellipse(x2,y2,s2,s2);
+  ellipse(x3,y3,s3,s3);
+  ellipse(x5,y5,s5,s5);
+  ellipse(x6,y6,s6,s6);
+  ellipse(x7,y7,s7,s7);
+  ellipse(x8,y8,s8,s8);
+  ellipse(x9,y9,s9,s9);
+  fill(200,50);
+  ellipse(x10,y10,s10,s10);
+  ellipse(x11,y11,s11,s11);
+  ellipse(x12,y12,s12,s12);
+  ellipse(x13,y13,s13,s13);
+  ellipse(x14,y14,s14,s14);
+  ellipse(x15,y15,s15,s15);
+  ellipse(x16,y16,s16,s16);
+  ellipse(x17,y17,s17,s17);
+  ellipse(x18,y18,s18,s18);
+  filter(BLUR,0.4);
+
+
+    eb.update();
+    object();//void object を召還
+    playerSetting();// void player を召還
+    keyReleased();//void keyReleased を召還
+    ballif();
+    HP();
+    tutorial();//void tutorial を召還
+    b1.draw();//class Player のオブジェクトを更新させながら召還(?)
+    animation();
+    line();
+    smooth();
+    
+}
+
+void line()
+{
+  line(width,13,100,13);
+  line(width,15,100,15);
+  line(width,17,100,17);
+  line(width,63,100,63);
+  line(width,65,100,65);
+  line(width,67,100,67);
+}
+  
+
+void animation()
+{
+  x1 -= random(1,6);
+  x2 -= random(1,6);
+  x3 -= random(1,6);
+  x4 -= random(1,6);
+  x5 -= random(1,6);
+  x6 -= random(1,6);
+  x7 -= random(1,6);
+  x8 -= random(1,6);
+  x9 -= random(1,6);
+  x10 -= random(1,6);
+  x11 -= random(1,6);
+  x12 -= random(1,6);
+  x13 -= random(1,10);
+  x14 -= random(1,10);
+  x15 -= random(1,10);
+  x16 -= random(1,10);
+  x17 -= random(1,10);
+  x18 -= random(1,10);
+}
+void HP()
+{
+  fill(0);
+  image (hp,520,20,40,40);
+  textFont(createFont("HGPｺﾞｼｯｸM", 50));
+  text("×", 565, 60);
+  
+  fill(0);
+  if( i == 0 )
+  {
+  text("0", 600, 60);
+  }else if( i == 1 )
+  {
+  text("1", 600, 60);
+  }else if( i == 2 )
+  {
+  text("2", 600, 60);
+  }else if( i == 3 )
+  {
+  text("3", 600, 60);
+  }else if( i == 4 )
+  {
+    text("4", 600, 60);
+  }else if( i == 5 )
+  {
+    text("5", 600, 60);
+  }
+}
+class Player
+{
+  //int x11,y11,size11;
+  
+  Player(int x1,int y1,int size1)
+  {
+ /* x11 = 30;
+  y11 = 200;
+  size11 = 20;*/
+  }
+  void draw()
+  {
+    image (Player, 100, PlayerPositionY-22, 20.0, 20.0);
+
+    color c1 = get(100,PlayerPositionY);
+    if( c1 == color(254) && flag1 == true)
+    {
+      flag2 = false;
+    }
+    if( c1 != color(254))
+    {
+    flag = false;
+    flag2 = true;
+    }
+    
+    color c = get(100,PlayerPositionY-22);
+    if(c == color(110) && flag == false)
+    {
+      PlayerPositionX = 10;
+      flag = true;
+      flag1 = true;
+      
+    }
+    
+    if( c != color(110) && flag == true)
+    {
+      flag = false;
+    }
+    keyPressed();
+    }
+}
+  
+  void playerSetting()
+{ 
+    if(flag2 == true)
+    {
+    PlayerPositionY += 7; //重力をプレイヤーに追加する
+    }
+    if( PlayerPositionY > height )
+    {
+      PlayerPositionY = 0;   
+    }
+    if( PlayerPositionY < 0 )
+    {
+      PlayerPositionY = 340;//もし、プレイヤーが画面から出てしまった場合、でた方向の反対側から出てくるようにする
+    }
+    if( PlayerPositionX < 0 )
+    {
+      PlayerPositionX = 4;//画面の左側に壁を作る
+    }
+    /*if( PlayerPositionY > 311)
+    {
+      PlayerPositionY = 311;
+    }*/
+    if( PlayerPositionX < 3 && PlayerPositionY > 310)
+    {
+      PlayerPositionX += 2;
+    }
+}
+void ballif()
+{
+  if(x1 < width1)
+  {
+    x1 = width;
+    y1 = random(4,290);
+  }
+  if(x2 < width1)
+  {
+    x2 = width;
+    y2 = random(4,290);
+  }
+  if(x3 < width1)
+  {
+    x3 = width;
+    y3 = random(4,290);
+  }
+  if(x4 < width1)
+  {
+    x4 = width;
+    y4 = random(4,290);
+  }
+  if(x5 < width1)
+  {
+     x5 = width;
+     y5 = random(4,290);
+  }
+  if(x6 < width1)
+  {
+     x6 = width;
+     y6 = random(4,290);
+  }
+  if(x7 < width1)
+  {
+     x7 = width;
+     y7 = random(4,290);
+  }
+  if(x8 < width1)
+  {
+     x8 = width;
+     y8 = random(4,290);
+  }
+  if(x9 < width1)
+  {
+     x9 = width;
+     y9 = random(4,290);
+  }
+  if(x10 < width1)
+  {
+     x10 = width;
+     y10 = random(4,290);
+  }
+  if(x11 < width1)
+  {
+     x11 = width;
+     y11 = random(4,290);
+  }
+  if(x12 < width1)
+  {
+     x12 = width;
+     y12 = random(4,290);
+  }
+  if(x13 < width1)
+  {
+     x13 = width;
+     y13 = random(4,290);
+  }
+  if(x14 < width1)
+  {
+      x14 = width;
+      y14 = random(4,290);
+  }
+  if(x15 < width1)
+  {
+     x15 = width;
+     y15 = random(4,290);
+  }
+  if(x16 < width1)
+  {
+     x16 = width;
+     y16 = random(4,290);
+  }
+  if(x17 < width1)
+  {
+     x17 = width;
+     y17 = random(4,290);
+  }
+  if(18 < width1)
+  {
+     x18 = width;
+     y18 = random(4,290);
+  }
+}
+class enemyBlock
+{
+  /*int x11,y11,size11;*/
+  
+  enemyBlock(int x1, int y1, int size1)
+  {
+   /* x11 = 30;
+    y11 = 200;
+    size11 = 20;*/
+  }
+  
+  void update()
+  {
+    fill(110);
+    rect(- PlayerPositionX + 1000, 280, 80, 80);
+   // rect(1000, 310, 50, 100);
+  }
+}
+
+   void keyPressed()
+{
+  if(live3 == 0){
+  if( keyPressed == true )
+  {
+    //if(key == CODED)
+  {   //もし、押されたキーにコードがあったら、指定されたイベントを開始する
+  if(key == 'w')
+  {
+    live1 = 1;
+    live3 = 1;
+    vy -= move;
+    PlayerPositionY += vy;
+        
+  if(vy == -3)
+  {
+    live1 = 2;
+          
+    vy = move;
+    PlayerPositionY += vy;
+  }
+  if(PlayerPositionY < 290)
+  {
+    PlayerPositionY = 320;
+    live3 = 0;
+  }
+  }
+       
+  if(key == 'a')
+  {
+    live1 = 3;
+        
+    vx -= move;
+    PlayerPositionX += vx;
+   //もし、←キーを押したら、左に移動する速さを加速させながら移動する
+                 
+  if(vx < -3)
+  {
+    live1 = 4;
+                     
+    vx = -3;
+    PlayerPositionX += vx;
+   //もし、右に移動する早さが一定値を超えたら加速を停止し、キーを押している間は一定速度で移動するようにする
+  }
+  }
+  
+  if(key == 'd' )
+  {     
+    live1 = 5;           
+         
+    vx += move;     
+    PlayerPositionX += vx;
+    //もし、→キーをクリックしたら右に移動する速さを加速しながら移動する
+            
+  if(vx > 3)
+  {             
+    live1 = 6;
+
+    vx = 3;
+    PlayerPositionX += vx;
+   //もし、右に移動する早さが一定値を超えたら加速を停止し、キーを押している間は一定速度で移動するようにする
+     }
+    }   
+   }   
+  }     
+ }
+}
+
+
+
+
+
+
+/*void keyReleased()//現在廃止中
+{
+    if(key == 'g')
+    {
+        live1 = 0;
+        live2 = 1;
+            if(live2 == 1)
+    {
+                vx -= 0.25;
+                if(vx < 0)
+        {
+                    live2 = 0;
+                    vx = 0;
+                }
+            }
+        }
+    }*/
+    
+    void object()
+{
+  // -PlayerPositionX+
+  fill(254);//void内のオブジェクトに色をつける ()の中身が色  RGBで色を指定するときは、(R(数値),G(数値),B(数値))というようにする
+  rect(640, 330, 1280, 800);
+  rect(-PlayerPositionX, 330, 1200, 800);//四角形のオブジェクトを　(x座標,y座標,x方向の長さ,y方向の長さ)で召還
+  rect(-PlayerPositionX+400, 200, 100, 10);
+  rect(-PlayerPositionX+200, 90, 50, 50);
+  rect(-PlayerPositionX+550, 220, 30, 30);
+  rect(-PlayerPositionX+530, 50, 60, 80);
+  rect(-PlayerPositionX+30, 120, 90, 50);
+  rect(-PlayerPositionX+100, 220,80, 50);
+  rect(-PlayerPositionX+720, 150, 100, -150);
+  rect(-PlayerPositionX+830, 180, 80, 30);
+  rect(-PlayerPositionX+1030, 130, 80, 100);
+  rect(-PlayerPositionX+980, 100, 60, 40);
+  rect(-PlayerPositionX+100, 0, -200, 450);
+  fill(130);
+  rect(0, 70, 1200, -73);//以下同文
+}
+void tutorial()
+{
+   fill(255,0,0);void object()
+{
+  // -PlayerPositionX+
+  fill(254);//void内のオブジェクトに色をつける ()の中身が色  RGBで色を指定するときは、(R(数値),G(数値),B(数値))というようにする
+  rect(640, 330, 1280, 800);
+  rect(-PlayerPositionX, 330, 1200, 800);//四角形のオブジェクトを　(x座標,y座標,x方向の長さ,y方向の長さ)で召還
+  rect(-PlayerPositionX+400, 200, 100, 10);
+  rect(-PlayerPositionX+200, 90, 50, 50);
+  rect(-PlayerPositionX+550, 220, 30, 30);
+  rect(-PlayerPositionX+530, 50, 60, 80);
+  rect(-PlayerPositionX+30, 120, 90, 50);
+  rect(-PlayerPositionX+100, 220,80, 50);
+  rect(-PlayerPositionX+720, 150, 100, -150);
+  rect(-PlayerPositionX+830, 180, 80, 30);
+  rect(-PlayerPositionX+1030, 130, 80, 100);
+  rect(-PlayerPositionX+980, 100, 60, 40);
+  rect(-PlayerPositionX+100, 0, -200, 450);
+  fill(130);
+  rect(0, 70, 1200, -73);//以下同文
+}
+   if( PlayerPositionX < 200 && PlayerPositionY > 310)//プレイヤーのx座標が、x +200より小さかった場合
+   {
+     textFont(createFont("HGPｺﾞｼｯｸM", 23));//テキストのフォントを ("フォント名",フォントサイズ(数値))で表示できるようにする(グローバル?)
+     text("Tutorial:",width/5,height/4);
+     text("A,Dを押して移動しよう！",width/5,height/3); //  テキストを x/5,y/3 の位置に表示
+   }
+         
+   if( PlayerPositionX > 600)//プレイヤーのx座標が、x +200より大きかった場合
+   {
+     textFont(createFont("HGPｺﾞｼｯｸM", 23));
+     text("Tutorial:",width/19,height/4);
+     text("灰色のブロックに当たると右上のライフの数が減るよ！", width/19, height/3);//  テキストを x/9,y/3 の位置に表示
+     text("ライフ⇒",400,50);
+     text("⬇",en1,en2);
+     text("灰色のブロック",en1,en2 - 20);
+     
+   }
+   if( PlayerPositionX > 0 && PlayerPositionX < 3 && PlayerPositionY > 310 && se == 0)
+   {
+     tutorial = minim.loadFile("tutorial.mp3");
+     tutorial.play();
+     se = 1;
+   }
+   if( PlayerPositionX > 600 && PlayerPositionX < 618 && se == 1)
+   {
+     tutorial = minim.loadFile("tutorial.mp3");
+     tutorial.play();
+     se = 2;
+   }
+}
+
+
+
+
+
+void stop()//アプリケーションを終了させた際の動作
+{
+    player_sound.close();//音楽の再生をストップ
+    minim.stop();//音楽再生ライブラリのストップ
+}
